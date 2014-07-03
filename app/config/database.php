@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'project_survey',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -45,6 +45,17 @@ return array(
 	*/
 
 	'connections' => array(
+
+        'project_survey' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'project_survey',
+            'username'  => 'root',
+            'password'  => '',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
 		'sqlite' => array(
 			'driver'   => 'sqlite',
