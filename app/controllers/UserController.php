@@ -34,7 +34,9 @@ class UserController extends BaseController {
             return Redirect::to('/')->withErrors($validator)->withInput(Input::except('password'));
         }
         else{
-            echo 'It Passed!';
+            $user = new User;
+            $user->signUp($first_name, $last_name, $email, $password, $birthday, $gender);
+            return Redirect::to('/');
         }
     }
 
