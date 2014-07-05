@@ -1,6 +1,28 @@
 @include('layouts.header')
 
 <div class="row">
+    <div class="medium-6 columns">
+        {{ Form::open(array('url' => 'user/signin')) }}
+            <fieldset>
+                <legend>User Sign In</legend>
+
+                <div class="row collapse">
+                    <div class="medium-4 columns">
+                        {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
+                    </div>
+                    <div class="medium-4 medium-offset-1 columns">
+                        {{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required')) }}
+                    </div>
+                    <div class="medium-2 columns">
+                        {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
+                    </div>
+                </div>
+            </fieldset>
+        {{ Form::close() }}
+    </div>
+</div>
+
+<div class="row">
     <div class="small-12 medium-6 columns">
         {{ Form::open(array('url' => 'user/signup')) }}
             <fieldset>
