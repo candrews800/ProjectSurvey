@@ -9,7 +9,7 @@ class UserController extends BaseController {
     const BIRTHDAY_RULES = 'required|date|after:1/1/1900|before:today';
     const GENDER_RULES = 'required|in:m,f';
 
-    public function signup(){
+    public function signUp(){
         $first_name = Input::get('first_name');
         $last_name = Input::get('last_name');
         $email = Input::get('email');
@@ -47,11 +47,12 @@ class UserController extends BaseController {
         }
     }
 
-    public function signin(){
+    public function signIn(){
         $email = Input::get('email');
         $password = Input::get('password');
+        $remember_me = Input::get('remember_me');
 
-        if(Auth::attempt(array('email' => $email, 'password' => $password))){
+        if(User::signIn($email, $password, $remember_me)){
             return Redirect::to('/');
         }
         else{
