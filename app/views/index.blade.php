@@ -9,6 +9,9 @@
                 <div class="row collapse">
                     <div class="medium-4 columns">
                         {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
+                        @if ($errors->has('email'))
+                            <small class="error">{{ $errors->first('email') }}</small>
+                        @endif
                     </div>
                     <div class="medium-4 medium-offset-1 columns">
                         {{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required')) }}

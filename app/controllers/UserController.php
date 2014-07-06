@@ -2,6 +2,13 @@
 
 class UserController extends BaseController {
 
+    const FIRST_NAME_RULES = 'required|alpha|min:2|max:25';
+    const LAST_NAME_RULES = 'required|alpha|min:2|max:25';
+    const EMAIL_RULES = 'required|email|unique:users,email';
+    const PASSWORD_RULES = 'required|min:6|max:40';
+    const BIRTHDAY_RULES = 'required|date|after:1/1/1900|before:today';
+    const GENDER_RULES = 'required|in:m,f';
+
     public function signup(){
         $first_name = Input::get('first_name');
         $last_name = Input::get('last_name');
@@ -21,12 +28,12 @@ class UserController extends BaseController {
                 'gender' => $gender
             ),
             array(
-                'first_name' => 'required|alpha|min:2|max:25',
-                'last_name' => 'required|alpha|min:2|max:25',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:6|max:40',
-                'birthday' => 'required|date|after:1/1/1900|before:today',
-                'gender' => 'required|in:m,f'
+                'first_name' => self::FIRST_NAME_RULES,
+                'last_name' => self::LAST_NAME_RULES,
+                'email' => self::EMAIL_RULES,
+                'password' => self::PASSWORD_RULES,
+                'birthday' => self::BIRTHDAY_RULES,
+                'gender' => self::GENDER_RULES
             )
         );
 
@@ -41,6 +48,21 @@ class UserController extends BaseController {
     }
 
     public function signin(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        $validator = Validator::make(
+            array(
+                'email' => $email
+            ),
+            array(
+                'email' => self::EMAIL_RULES
+            )
+        );
+
+        if($validator->fails()){
+            return Redirect::to('/')->withErrors($validator);
+        }
         
     }
 
