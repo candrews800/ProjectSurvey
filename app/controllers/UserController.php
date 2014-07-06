@@ -51,19 +51,17 @@ class UserController extends BaseController {
         $email = Input::get('email');
         $password = Input::get('password');
 
-        $validator = Validator::make(
-            array(
-                'email' => $email
-            ),
-            array(
-                'email' => self::EMAIL_RULES
-            )
-        );
-
-        if($validator->fails()){
-            return Redirect::to('/')->withErrors($validator);
+        if(Auth::attempt(array('email' => $email, 'password' => $password))){
+            return Redirect::to('/');
         }
-        
+        else{
+            return Redirect::to('/');
+        }
     }
 
+    public function logout(){
+        Auth::logout();
+
+        return Redirect::to('/');
+    }
 }

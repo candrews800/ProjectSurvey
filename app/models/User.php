@@ -1,6 +1,17 @@
 <?php
 
-class User extends Eloquent{
+use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\Reminders\RemindableInterface;
+
+class User extends Eloquent implements UserInterface, RemindableInterface{
+
+    use UserTrait, RemindableTrait;
+
+    protected $table = 'users';
+
+
     public function signUp($first_name, $last_name, $email, $password, $birthday, $gender){
         $this->first_name = ucfirst($first_name);
         $this->last_name = ucfirst($last_name);
@@ -12,4 +23,5 @@ class User extends Eloquent{
 
         $this->save();
     }
+
 }

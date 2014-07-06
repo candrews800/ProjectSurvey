@@ -16,4 +16,6 @@ Route::get('/', 'HomeController@index');
 Route::group(array('prefix' => 'user'), function(){
     Route::post('signup', array('before' => 'csrf', 'uses' => 'UserController@signup'));
     Route::post('signin', array('before' => 'csrf', 'uses' => 'UserController@signin'));
+
+    Route::get('logout', array('before' => 'auth', 'uses' => 'UserController@logout'));
 });

@@ -2,10 +2,10 @@
 
 <div class="row">
     <div class="medium-6 columns">
-        {{ Form::open(array('url' => 'user/signin')) }}
-            <fieldset>
-                <legend>User Sign In</legend>
-
+        <fieldset>
+            <legend>User Sign In</legend>
+            @if(Auth::guest())
+            {{ Form::open(array('url' => 'user/signin')) }}
                 <div class="row collapse">
                     <div class="medium-4 columns">
                         {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
@@ -20,8 +20,12 @@
                         {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
                     </div>
                 </div>
-            </fieldset>
-        {{ Form::close() }}
+            {{ Form::close() }}
+            @else
+                Hello
+                <a href="{{ url('user/logout') }}" class="button">Log out</a>
+            @endif
+        </fieldset>
     </div>
 </div>
 
