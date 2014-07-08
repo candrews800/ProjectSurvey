@@ -1,7 +1,7 @@
 @include('layouts.header')
 
 <div class="row">
-    <div class="medium-6 columns">
+    <div class="medium-8 columns">
         <fieldset>
             <legend>User Sign In</legend>
             @if(Auth::guest())
