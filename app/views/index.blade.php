@@ -22,7 +22,7 @@
                 </div>
             {{ Form::close() }}
             @else
-                Hello
+                Hello, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                 <a href="{{ url('user/logout') }}" class="button">Log out</a>
             @endif
         </fieldset>
