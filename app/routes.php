@@ -14,8 +14,11 @@
 Route::get('/', 'HomeController@index');
 
 Route::group(array('prefix' => 'user'), function(){
-    Route::post('signup', array('before' => 'csrf', 'uses' => 'UserController@signUp'));
-    Route::post('signin', array('before' => 'csrf', 'uses' => 'UserController@signIn'));
+    Route::get('settings', array('before' => 'auth', 'uses' => 'UserController@displayAllSettings'));
+    Route::get('settings/{i}', array('before' => 'auth', 'uses' => 'UserController@displaySingleSetting'));
+    Route::post('settings/{i}/edit', array('before' => 'auth|csrf', 'uses' => 'UserController@editSetting'));
 
     Route::get('logout', array('before' => 'auth', 'uses' => 'UserController@logout'));
+    Route::post('signup', array('before' => 'csrf', 'uses' => 'UserController@signUp'));
+    Route::post('signin', array('before' => 'csrf', 'uses' => 'UserController@signIn'));
 });

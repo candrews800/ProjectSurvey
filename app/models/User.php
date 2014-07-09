@@ -28,4 +28,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
         return Auth::attempt(array('email' => $email, 'password' => $password), $remember_me);
     }
 
+    public function saveSetting($setting, $value, $from_admin=0){
+        $this->$setting = $value;
+        $this->save();
+    }
+
+    public function changePassword($new_password){
+        $this->saveSetting('password', Hash::make($new_password));
+    }
 }

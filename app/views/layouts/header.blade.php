@@ -4,7 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Survey</title>
-    <link rel="stylesheet" href="css/foundation.css" />
-    <script src="js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="{{ url('css/foundation.css') }}" />
+    <script src="{{ url('js/vendor/modernizr.js') }}"></script>
 </head>
 <body>
+
+<div class="row">
+    <div class="medium-8 columns">
+        <fieldset>
+            <legend>User Sign In</legend>
+            @if(Auth::guest())
+            {{ Form::open(array('url' => 'user/signin')) }}
+            <div class="row collapse">
+                <div class="medium-4 columns">
+                    {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
+                    @if ($errors->has('email'))
+                    <small class="error">{{ $errors->first('email') }}</small>
+                    @endif
+                </div>
+                <div class="medium-4 medium-offset-1 columns">
+                    {{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required')) }}
+                </div>
+                <div class="medium-2 columns">
+                    {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
+                </div>
+            </div>
+            {{ Form::close() }}
+            @else
+            <div class="row collapse">
+                <div class="medium-6 columns">
+                    <h3>Hello, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h3>
+                </div>
+                <div class="medium-3 columns">
+                    <a href="{{ url('user/logout') }}" class="button">Log out</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-6 columns">
+                    <a href="{{ url('user/settings') }}">Account Settings</a>
+                </div>
+            </div>
+            @endif
+        </fieldset>
+    </div>
+</div>

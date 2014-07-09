@@ -1,35 +1,6 @@
 @include('layouts.header')
 
 <div class="row">
-    <div class="medium-8 columns">
-        <fieldset>
-            <legend>User Sign In</legend>
-            @if(Auth::guest())
-            {{ Form::open(array('url' => 'user/signin')) }}
-                <div class="row collapse">
-                    <div class="medium-4 columns">
-                        {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
-                        @if ($errors->has('email'))
-                            <small class="error">{{ $errors->first('email') }}</small>
-                        @endif
-                    </div>
-                    <div class="medium-4 medium-offset-1 columns">
-                        {{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required')) }}
-                    </div>
-                    <div class="medium-2 columns">
-                        {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
-                    </div>
-                </div>
-            {{ Form::close() }}
-            @else
-                Hello, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                <a href="{{ url('user/logout') }}" class="button">Log out</a>
-            @endif
-        </fieldset>
-    </div>
-</div>
-
-<div class="row">
     <div class="small-12 medium-6 columns">
         {{ Form::open(array('url' => 'user/signup')) }}
             <fieldset>
