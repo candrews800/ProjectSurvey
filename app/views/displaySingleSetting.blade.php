@@ -5,7 +5,7 @@
         {{ Form::open(array('url' => 'user/settings/' . $field . '/edit')) }}
             <fieldset>
                 <legend>Account Settings</legend>
-                @if($type != 'password')
+                @if($type == 'text')
                     @if($type == 'text')
                         {{ Form::label($field, ucfirst(str_replace('_', ' ', $field))) }}
                         {{ Form::text($field, $$field, array('placeholder' => ucfirst(str_replace('_', ' ', $field)), 'required' => 'required')) }}
@@ -13,6 +13,37 @@
                             <small class="error">{{ $errors->first($field) }}</small>
                         @endif
                     @endif
+                @elseif($type == 'radio')
+                    <label>Gender</label>
+                    <?php
+                        echo Form::radio('gender', 'm', isset($m), array('id' => 'male'));
+                        echo Form::label('male', 'Male');
+                    ?>
+
+                    <?php
+                    echo Form::radio('gender', 'f', isset($f), array('id' => 'female'));
+                    echo Form::label('female', 'Female');
+                    ?>
+                    @if ($errors->has('gender'))
+                    <small class="error">{{ $errors->first('gender') }}</small>
+                    @endif
+                @elseif($type == 'date')
+                    <label>Birthday
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            {{ Form::selectMonth('birthday_month', $birthday_month) }}
+                        </div>
+                        <div class="medium-3 columns">
+                            {{ Form::text('birthday_day', $birthday_day, array('placeholder' => 'Day', 'required' => 'required')) }}
+                        </div>
+                        <div class="medium-3 columns">
+                            {{ Form::text('birthday_year', $birthday_year, array('placeholder' => 'Year', 'required' => 'required')) }}
+                        </div>
+                    </div>
+                    @if ($errors->has('birthday'))
+                    <small class="error">{{ $errors->first('birthday') }}</small>
+                    @endif
+                </label>
                 @else
                     {{ Form::label('old_password', 'Old Password') }}
                     {{ Form::password('old_password', array('placeholder' => 'Old Password', 'required' => 'required')) }}

@@ -62,12 +62,12 @@
                     <div class="medium-5 columns">
                         <label>Gender</label>
                         <?php
-                            echo Form::radio('gender', 'male', false, array('id' => 'male'));
+                            echo Form::radio('gender', 'm', false, array('id' => 'male'));
                             echo Form::label('male', 'Male');
                         ?>
 
                         <?php
-                            echo Form::radio('gender', 'female', false, array('id' => 'female'));
+                            echo Form::radio('gender', 'f', false, array('id' => 'female'));
                             echo Form::label('female', 'Female');
                         ?>
                         @if ($errors->has('gender'))

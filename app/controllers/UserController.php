@@ -15,7 +15,6 @@ class UserController extends BaseController {
         $password = Input::get('password');
         $birthday = Input::get('birthday_month') . '/' . Input::get('birthday_day') . '/' . Input::get('birthday_year');
         $gender = Input::get('gender');
-        $gender = substr($gender, 0, 1); // Return first letter
 
         $validator = Validator::make(
             array(
@@ -113,7 +112,8 @@ class UserController extends BaseController {
                 case "gender":
                     $settingToEdit = array(
                         'gender' => Auth::user()->gender,
-                        'type' => 'checkbox'
+                        'type' => 'radio',
+                        Auth::user()->gender => true
                     );
                     break;
             }
@@ -148,12 +148,14 @@ class UserController extends BaseController {
 
             return Redirect::to('user/settings');
         }
-        else if($setting == "first_name" || $setting == "last_name" || $setting == "email"){
+        else if($setting == "first_name" || $setting == "last_name" || $setting == "email" || $setting == "gender"){
             $$setting = Input::get($setting);
             $confirm_password = Input::get('confirm_password');
 
             if($setting == 'email')
                 $rules = self::EMAIL_RULES;
+            else if($setting == 'gender')
+                $rules = self::GENDER_RULES;
             else
                 $rules = self::NAME_RULES;
 
@@ -176,8 +178,29 @@ class UserController extends BaseController {
 
             return Redirect::to('user/settings');
         }
+        else if($setting == 'birthday'){
+            $birthday = Input::get('birthday_month') . '/' . Input::get('birthday_day') . '/' . Input::get('birthday_year');
+            $confirm_password = Input::get('confirm_password');
 
+            $validator = Validator::make(
+                array(
+                    'birthday' => $birthday,
+                    'confirm_password' => $confirm_password
+                ),
+                array(
+                    'birthday' => self::BIRTHDAY_RULES,
+                    'confirm_password' => 'current_password'
+                )
+            );
 
+            if($validator->fails()){
+                return Redirect::back()->withErrors($validator);
+            }
+
+            Auth::user()->saveSetting('birthday', date('Y-m-d', strtotime($birthday)));
+
+            return Redirect::to('user/settings');
+        }
 
     }
 }
