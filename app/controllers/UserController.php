@@ -134,7 +134,7 @@ class UserController extends BaseController {
                     'confirm_password' => $confirm_password
                 ),
                 array(
-                    'old_password' => '',
+                    'old_password' => 'current_password',
                     'new_password' => self::PASSWORD_RULES,
                     'confirm_password' => ''
                 )
@@ -144,7 +144,7 @@ class UserController extends BaseController {
                 return Redirect::back()->withErrors($validator)->withInput(Input::except(array('old_password','new_password','confirm_password')));
             }
 
-            Auth::user()->savePassword($new_password);
+            Auth::user()->changePassword($new_password);
 
             return Redirect::to('user/settings');
         }
@@ -164,7 +164,7 @@ class UserController extends BaseController {
                 ),
                 array(
                     $setting => $rules,
-                    'confirm_password' => ''
+                    'confirm_password' => 'current_password'
                 )
             );
 

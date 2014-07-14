@@ -16,6 +16,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/commands',
 	app_path().'/controllers',
 	app_path().'/models',
+    app_path().'/validators',
 	app_path().'/database/seeds',
 
 ));
@@ -79,3 +80,13 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+ * Add Custom Validation Methods
+ */
+
+Validator::resolver(function($translator, $data, $rules, $messages)
+{
+    return new CustomValidator($translator, $data, $rules, $messages);
+});
+

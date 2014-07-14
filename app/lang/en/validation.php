@@ -28,6 +28,7 @@ return array(
 		"array"   => "The :attribute must have between :min and :max items.",
 	),
 	"confirmed"            => "The :attribute confirmation does not match.",
+    "current_password"     => "The :attribute does not match the current password.",
 	"date"                 => "The :attribute is not a valid date.",
 	"date_format"          => "The :attribute does not match the format :format.",
 	"different"            => "The :attribute and :other must be different.",
