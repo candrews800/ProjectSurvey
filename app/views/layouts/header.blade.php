@@ -29,6 +29,11 @@
                     {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
                 </div>
             </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <a href="{{ action('RemindersController@getRemind') }}">Forgot Your Password?</a>
+                </div>
+            </div>
             {{ Form::close() }}
             @else
             <div class="row collapse">

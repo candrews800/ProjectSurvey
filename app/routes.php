@@ -11,6 +11,8 @@
 |
 */
 
+Route::controller('password', 'RemindersController');
+
 Route::get('/', 'HomeController@index');
 
 Route::group(array('prefix' => 'user'), function(){
