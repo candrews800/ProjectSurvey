@@ -11,6 +11,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
 
     protected $table = 'users';
 
+    const NAME_RULES = 'required|alpha|min:2|max:25';
+    const EMAIL_RULES = 'required|email|unique:users,email';
+    const PASSWORD_RULES = 'required|min:6|max:40';
+    const BIRTHDAY_RULES = 'required|date|after:1/1/1900|before:today';
+    const GENDER_RULES = 'required|in:m,f';
+
 
     public function signUp($first_name, $last_name, $email, $password, $birthday, $gender){
         $this->first_name = ucfirst($first_name);

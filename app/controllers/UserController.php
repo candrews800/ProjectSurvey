@@ -2,12 +2,6 @@
 
 class UserController extends BaseController {
 
-    const NAME_RULES = 'required|alpha|min:2|max:25';
-    const EMAIL_RULES = 'required|email|unique:users,email';
-    const PASSWORD_RULES = 'required|min:6|max:40';
-    const BIRTHDAY_RULES = 'required|date|after:1/1/1900|before:today';
-    const GENDER_RULES = 'required|in:m,f';
-
     public function signUp(){
         $first_name = Input::get('first_name');
         $last_name = Input::get('last_name');
@@ -26,12 +20,12 @@ class UserController extends BaseController {
                 'gender' => $gender
             ),
             array(
-                'first_name' => self::NAME_RULES,
-                'last_name' => self::NAME_RULES,
-                'email' => self::EMAIL_RULES,
-                'password' => self::PASSWORD_RULES,
-                'birthday' => self::BIRTHDAY_RULES,
-                'gender' => self::GENDER_RULES
+                'first_name' => User::NAME_RULES,
+                'last_name' => User::NAME_RULES,
+                'email' => User::EMAIL_RULES,
+                'password' => User::PASSWORD_RULES,
+                'birthday' => User::BIRTHDAY_RULES,
+                'gender' => User::GENDER_RULES
             )
         );
 
@@ -135,8 +129,8 @@ class UserController extends BaseController {
                 ),
                 array(
                     'old_password' => 'current_password',
-                    'new_password' => self::PASSWORD_RULES,
-                    'confirm_password' => ''
+                    'new_password' => User::PASSWORD_RULES,
+                    'confirm_password' => 'same:new_password'
                 )
             );
 
@@ -153,11 +147,11 @@ class UserController extends BaseController {
             $confirm_password = Input::get('confirm_password');
 
             if($setting == 'email')
-                $rules = self::EMAIL_RULES;
+                $rules = User::EMAIL_RULES;
             else if($setting == 'gender')
-                $rules = self::GENDER_RULES;
+                $rules = User::GENDER_RULES;
             else
-                $rules = self::NAME_RULES;
+                $rules = User::NAME_RULES;
 
             $validator = Validator::make(
                 array(
@@ -188,7 +182,7 @@ class UserController extends BaseController {
                     'confirm_password' => $confirm_password
                 ),
                 array(
-                    'birthday' => self::BIRTHDAY_RULES,
+                    'birthday' => User::BIRTHDAY_RULES,
                     'confirm_password' => 'current_password'
                 )
             );

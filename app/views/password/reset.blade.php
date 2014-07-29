@@ -1,3 +1,6 @@
+<?php
+    $error = Session::get('error');
+?>
 @include('layouts.header')
 
 <div class="row">
@@ -6,6 +9,13 @@
         <input type="hidden" name="token" value="{{ $token }}">
         <fieldset>
             <legend>Forgot Your Password?</legend>
+
+            @if(!empty($status) || !empty($error))
+            <div data-alert class="alert-box alert">
+                {{ $error }}
+                <a href="#" class="close">&times;</a>
+            </div>
+            @endif
 
             <div class="row">
                 <div class="medium-12 columns">
