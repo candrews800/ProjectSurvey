@@ -74,7 +74,7 @@ class UserController extends BaseController {
             'gender' => $gender
         );
 
-        return View::make('displayAllSettings')->with($userSettings);
+        return View::make('user.displayAllSettings')->with($userSettings);
     }
 
     public function displaySingleSetting($setting){
@@ -113,7 +113,7 @@ class UserController extends BaseController {
             }
         }
         $settingToEdit['field'] = $setting;
-        return View::make('displaySingleSetting')->with($settingToEdit);
+        return View::make('user.displaySingleSetting')->with($settingToEdit);
     }
 
     public function editSetting($setting){
