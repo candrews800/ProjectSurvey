@@ -1,10 +1,9 @@
-@if (isset($status))
-{{ $status }}
-@endif
+<?php
+    $status = Session::get('status');
+    $error = Session::get('error');
+?>
 
-@if (isset($error))
-{{ $error }}
-@endif
+
 
 @include('layouts.header')
 
@@ -14,11 +13,16 @@
         <fieldset>
             <legend>Forgot Your Password?</legend>
 
+            @if(!empty($status) || !empty($error))
+            <div data-alert class="alert-box alert">
+                {{ $status }}
+                {{ $error }}
+                <a href="#" class="close">&times;</a>
+            </div>
+            @endif
+
             {{ Form::label('email', 'Enter Your Email Address') }}
             {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
-            @if ($errors->has('email'))
-                <small class="error">{{ $errors->first('email') }}</small>
-            @endif
 
             {{ Form::submit('Send Reminder', array('class' => 'button')) }}
         </fieldset>
