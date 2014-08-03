@@ -9,5 +9,5 @@ class Business extends Eloquent implements RemindableInterface{
 
     protected $table = 'businesses';
 
-    
+
 }

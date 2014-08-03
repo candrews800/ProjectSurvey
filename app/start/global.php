@@ -90,3 +90,16 @@ Validator::resolver(function($translator, $data, $rules, $messages)
     return new CustomValidator($translator, $data, $rules, $messages);
 });
 
+/*
+ * Extend Auth Class to accommodate Business class
+ */
+
+use Illuminate\Auth\Guard;
+
+Auth::extend('multiple_auth', function()
+{
+    return new Guard(
+        new Provider(),
+        App::make('session.store')
+    );
+});
