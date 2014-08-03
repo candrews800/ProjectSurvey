@@ -4,33 +4,29 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Zizaco\Entrust\HasRole;
 
 class User extends Eloquent implements UserInterface, RemindableInterface{
 
-    use UserTrait, RemindableTrait;
+    use UserTrait, RemindableTrait, hasRole;
 
     protected $table = 'users';
 
-    const NAME_RULES = 'required|alpha|min:2|max:25';
     const EMAIL_RULES = 'required|email|unique:users,email';
     const PASSWORD_RULES = 'required|min:6|max:40';
-    const BIRTHDAY_RULES = 'required|date|after:1/1/1900|before:today';
-    const GENDER_RULES = 'required|in:m,f';
 
 
-    public function signUp($first_name, $last_name, $email, $password, $birthday, $gender){
-        $this->first_name = ucfirst($first_name);
-        $this->last_name = ucfirst($last_name);
+    public function signUp($email, $password, $role_id){
         $this->email = $email;
         $this->password = Hash::make($password);
-        $this->birthday = date('Y-m-d', strtotime($birthday));
-        $this->gender = $gender;
         $this->last_login = date('Y-m-d H:i:s');
-
         $this->save();
+        $this->attachRole($role_id);
+
+        return $this->id;
     }
 
-    public static function signIn($email, $password, $remember_me = false){
+    public static function login($email, $password, $remember_me = false){
         return Auth::attempt(array('email' => $email, 'password' => $password), $remember_me);
     }
 
@@ -41,5 +37,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface{
 
     public function changePassword($new_password){
         $this->saveSetting('password', Hash::make($new_password));
+    }
+
+    public function changeEmail($new_email){
+        $this->saveSetting('email', $new_email);
     }
 }

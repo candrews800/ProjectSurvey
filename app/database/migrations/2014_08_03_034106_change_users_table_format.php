@@ -12,7 +12,7 @@ class ChangeUsersTableFormat extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('user_data', function($table)
+        Schema::create('customer_data', function($table)
         {
             $table->increments('id');
             $table->integer('user_id');

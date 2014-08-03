@@ -1,13 +1,9 @@
 <?php
 
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
+class Business extends Eloquent{
 
-class Business extends Eloquent implements RemindableInterface{
 
-    use RemindableTrait;
-
-    protected $table = 'businesses';
+    protected $table = 'business_data';
 
 
 }

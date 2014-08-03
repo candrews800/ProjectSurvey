@@ -12,9 +12,9 @@
 <div class="row">
     <div class="medium-8 columns">
         <fieldset>
-            <legend>User Sign In</legend>
+            <legend>User Login In</legend>
             @if(Auth::guest())
-            {{ Form::open(array('url' => 'user/signin')) }}
+            {{ Form::open(array('url' => 'user/login')) }}
             <div class="row collapse">
                 <div class="medium-4 columns">
                     {{ Form::email('email', null, array('placeholder' => 'Email', 'required' => 'required')) }}
@@ -26,7 +26,7 @@
                     {{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required')) }}
                 </div>
                 <div class="medium-2 columns">
-                    {{ Form::submit('Sign In', array('class' => 'button postfix')) }}
+                    {{ Form::submit('Log In', array('class' => 'button postfix')) }}
                 </div>
             </div>
             <div class="row">
@@ -36,9 +36,10 @@
             </div>
             {{ Form::close() }}
             @else
+            <?php $customer = Customer::where('user_id', '=' , Auth::user()->id)->firstOrFail(); ?>
             <div class="row collapse">
                 <div class="medium-6 columns">
-                    <h3>Hello, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h3>
+                    <h3>Hello, {{ $customer->first_name . ' ' . $customer->last_name }}</h3>
                 </div>
                 <div class="medium-3 columns">
                     <a href="{{ url('user/logout') }}" class="button">Log out</a>
@@ -46,7 +47,7 @@
             </div>
             <div class="row">
                 <div class="medium-6 columns">
-                    <a href="{{ url('user/settings') }}">Account Settings</a>
+                    <a href="{{ url('customer/settings') }}">Account Settings</a>
                 </div>
             </div>
             @endif

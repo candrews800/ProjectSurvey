@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="medium-6 columns">
-        {{ Form::open(array('url' => 'user/settings/' . $field . '/edit')) }}
+        {{ Form::open(array('url' => 'customer/settings/' . $field . '/edit')) }}
             <fieldset>
                 <legend>Account Settings</legend>
                 @if($type == 'text')

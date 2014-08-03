@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="small-12 medium-6 columns">
-        {{ Form::open(array('url' => 'user/signup')) }}
+        {{ Form::open(array('url' => 'customer/signup')) }}
             <fieldset>
                 <legend>User Sign Up</legend>
 

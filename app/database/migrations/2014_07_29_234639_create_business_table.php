@@ -12,12 +12,11 @@ class CreateBusinessTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('businesses', function($table)
+        Schema::create('business_data', function($table)
         {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('name');
-            $table->string('email');
-            $table->string('password', 100);
             $table->text('about');
             $table->string('address1', 100);
             $table->string('address2', 50);
@@ -26,9 +25,6 @@ class CreateBusinessTable extends Migration {
             $table->char('zipcode', 5);
             $table->float('latitude');
             $table->float('longitude');
-            $table->dateTime('last_login');
-            $table->rememberToken();
-            $table->timestamps();
         });
 	}
 
