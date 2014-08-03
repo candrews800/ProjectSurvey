@@ -36,7 +36,15 @@ class ChangeUsersTableFormat extends Migration {
 	 */
 	public function down()
 	{
-		//
+        Schema::drop('user_data');
+
+        Schema::table('users', function($table)
+        {
+            $table->char('first_name', 20);
+            $table->char('last_name', 20);
+            $table->char('gender', 1);
+            $table->date('birthday');
+        });
 	}
 
 }
