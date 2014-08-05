@@ -1,7 +1,7 @@
 <?php
     $error = Session::get('error');
 ?>
-@include('layouts.header')
+@include('layout.header')
 
 <div class="row">
     <div class="small-12 medium-6 columns">
@@ -53,4 +53,4 @@
     </div>
 </div>
 
-@include('layouts.footer')
+@include('layout.footer')

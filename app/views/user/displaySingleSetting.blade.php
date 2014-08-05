@@ -1,4 +1,4 @@
-@include('user.layouts.header')
+@include('layout.header')
 
 <div class="row">
     <div class="medium-6 columns">
@@ -74,4 +74,4 @@
     </div>
 </div>
 
-@include('user.layouts.footer')
+@include('layout.footer')

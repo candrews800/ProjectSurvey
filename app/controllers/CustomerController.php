@@ -2,6 +2,10 @@
 
 class CustomerController extends BaseController {
 
+    public function index(){
+        return View::make('user.index')->with(array('page' => 'customer'));
+    }
+
     public function signUp(){
         $first_name = Input::get('first_name');
         $last_name = Input::get('last_name');
@@ -57,7 +61,7 @@ class CustomerController extends BaseController {
             'gender' => $gender
         );
 
-        return View::make('user.displayAllSettings')->with($customerSettings);
+        return View::make('user.displayAllSettings')->with($customerSettings)->with(array('page' => 'customer'));
     }
 
     public function displaySingleSetting($setting){
@@ -92,13 +96,13 @@ class CustomerController extends BaseController {
                     $settingToEdit = array(
                         'gender' => $customer->gender,
                         'type' => 'radio',
-                        Auth::user()->gender => true
+                        $customer->gender => true
                     );
                     break;
             }
         }
         $settingToEdit['field'] = $setting;
-        return View::make('user.displaySingleSetting')->with($settingToEdit);
+        return View::make('user.displaySingleSetting')->with($settingToEdit)->with(array('page' => 'customer'));
     }
 
     public function editSetting($setting){
@@ -122,12 +126,12 @@ class CustomerController extends BaseController {
             );
 
             if($validator->fails()){
-                return Redirect::back()->withErrors($validator)->withInput(Input::except(array('old_password','new_password','confirm_password')));
+                return Redirect::back()->withErrors($validator)->withInput(Input::except(array('old_password','new_password','confirm_password')))->with(array('page' => 'customer'));
             }
 
             $user->changePassword($new_password);
 
-            return Redirect::to('customer/settings');
+            return Redirect::to('customer/settings')->with(array('page' => 'customer'));
         }
         else if($setting == "first_name" || $setting == "last_name" || $setting == "email" || $setting == "gender"){
             $$setting = Input::get($setting);
@@ -152,7 +156,7 @@ class CustomerController extends BaseController {
             );
 
             if($validator->fails()){
-                return Redirect::back()->withErrors($validator)->withInput(Input::except('confirm_password'));
+                return Redirect::back()->withErrors($validator)->withInput(Input::except('confirm_password'))->with(array('page' => 'customer'));
             }
 
             if($setting == 'email'){
@@ -162,7 +166,7 @@ class CustomerController extends BaseController {
                 $customer->saveSetting($setting, $$setting);
             }
 
-            return Redirect::to('customer/settings');
+            return Redirect::to('customer/settings')->with(array('page' => 'customer'));
         }
         else if($setting == 'birthday'){
             $birthday = Input::get('birthday_month') . '/' . Input::get('birthday_day') . '/' . Input::get('birthday_year');
@@ -180,12 +184,12 @@ class CustomerController extends BaseController {
             );
 
             if($validator->fails()){
-                return Redirect::back()->withErrors($validator);
+                return Redirect::back()->withErrors($validator)->with(array('page' => 'customer'));
             }
 
             $customer->saveSetting('birthday', date('Y-m-d', strtotime($birthday)));
 
-            return Redirect::to('customer/settings');
+            return Redirect::to('customer/settings')->with(array('page' => 'customer'));
         }
 
     }

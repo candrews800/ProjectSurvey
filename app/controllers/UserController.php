@@ -8,7 +8,7 @@ class UserController extends BaseController {
         $remember_me = Input::get('remember_me');
 
         if(User::login($email, $password, $remember_me)){
-            return Redirect::to('/');
+            return Redirect::to('/customer');
         }
         else{
             return Redirect::to('/');
