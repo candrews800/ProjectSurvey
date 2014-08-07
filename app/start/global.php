@@ -91,15 +91,75 @@ Validator::resolver(function($translator, $data, $rules, $messages)
 });
 
 /*
- * Extend Auth Class to accommodate Business class
+ * State Macro for Form Drop Down
  */
 
-use Illuminate\Auth\Guard;
+Form::macro('states', function($name = "state", $selected = null) {
 
-Auth::extend('multiple_auth', function()
-{
-    return new Guard(
-        new Provider(),
-        App::make('session.store')
+    $states = array(
+        ''=>"Select",
+        'AL'=>"AL",
+        'AK'=>"AK",
+        'AZ'=>"AZ",
+        'AR'=>"AR",
+        'CA'=>"CA",
+        'CO'=>"CO",
+        'CT'=>"CT",
+        'DE'=>"DE",
+        'DC'=>"DC",
+        'FL'=>"FL",
+        'GA'=>"GA",
+        'HI'=>"HI",
+        'ID'=>"ID",
+        'IL'=>"IL",
+        'IN'=>"IN",
+        'IA'=>"IA",
+        'KS'=>"KS",
+        'KY'=>"KY",
+        'LA'=>"LA",
+        'ME'=>"ME",
+        'MD'=>"MD",
+        'MA'=>"MA",
+        'MI'=>"MI",
+        'MN'=>"MN",
+        'MS'=>"MS",
+        'MO'=>"MO",
+        'MT'=>"MT",
+        'NE'=>"NE",
+        'NV'=>"NV",
+        'NH'=>"NH",
+        'NJ'=>"NJ",
+        'NM'=>"NM",
+        'NY'=>"NY",
+        'NC'=>"NC",
+        'ND'=>"North Dakota",
+        'OH'=>"ND",
+        'OK'=>"OK",
+        'OR'=>"OR",
+        'PA'=>"PA",
+        'RI'=>"RI",
+        'SC'=>"SC",
+        'SD'=>"SD",
+        'TN'=>"TN",
+        'TX'=>"TX",
+        'UT'=>"UT",
+        'VT'=>"VT",
+        'VA'=>"VA",
+        'WA'=>"WA",
+        'WV'=>"WV",
+        'WI'=>"WI",
+        'WY'=>"WY"
     );
+
+    $select = '<select name="'.$name.'">';
+
+    foreach ($states as $abbr => $state)
+    {
+        $select .= '<option value="'.$abbr.'"'.($selected == $abbr ? ' selected="selected"' : '').'>'.$state.'</option> ';
+    }
+
+    $select .= '</select>';
+
+    return $select;
+
 });

@@ -31,6 +31,9 @@ Route::group(array('prefix' => 'customer'), function(){
 
 Route::group(array('prefix' => 'business'), function(){
     Route::get('/', array('before' => 'auth', 'uses' => 'BusinessController@index'));
+    Route::get('settings', array('before' => 'auth', 'uses' => 'BusinessController@displayAllSettings'));
+
+    Route::post('signup', array('before' => 'csrf', 'uses' => 'BusinessController@signUp'));
 });
 
 Route::group(array('prefix' => 'admin'), function(){

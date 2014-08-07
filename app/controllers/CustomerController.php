@@ -34,7 +34,7 @@ class CustomerController extends BaseController {
         );
 
         if($validator->fails()){
-            return Redirect::to('/')->withErrors($validator)->withInput(Input::except('password'));
+            return Redirect::to('/')->withErrors($validator, 'customer_error')->withInput(Input::except('password'));
         }
         else{
             $customer = new Customer;

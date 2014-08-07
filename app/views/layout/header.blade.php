@@ -55,11 +55,28 @@
                     {{ Form::close() }}
                 </li>
                 @else
-                <?php $customer = Customer::where('user_id', '=' , Auth::user()->id)->firstOrFail(); ?>
+                <?php
+                    //Get Type of User
+                    $role = DB::table('assigned_roles')->where('user_id', Auth::id())->pluck('role_id');
+
+                    //If User is a Business
+                    if($role == 2){
+                        $business = Business::where('user_id', '=' , Auth::user()->id)->firstOrFail();
+                        $name = $business->name;
+                        $role_name = 'business';
+                    }
+                    // If User is a Customer
+                    elseif($role == 1)
+                    {
+                        $customer = Customer::where('user_id', '=' , Auth::user()->id)->firstOrFail();
+                        $name = $customer->first_name . ' ' . $customer->last_name;
+                        $role_name = 'customer';
+                    }
+                ?>
                 <li class="has-dropdown">
-                    <a href="#">Hello, {{ $customer->first_name . ' ' . $customer->last_name }}</a>
+                    <a href="#">Hello, {{ $name }}</a>
                     <ul class="dropdown">
-                        <li><a href="{{ url('customer/settings') }}">Account Settings</a></li>
+                        <li><a href="{{ url($role_name . '/settings') }}">Account Settings</a></li>
                     </ul>
                 </li>
                 <li class="has-form">
